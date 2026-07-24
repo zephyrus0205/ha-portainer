@@ -11,7 +11,7 @@ class PortainerApi:
         self._session = session
         self.base_url = base_url.rstrip("/")
         self._headers = {"X-API-Key": api_key, "Accept": "application/json"}
-    async def async_get(self, path: str, **params: str | bool) -> Any:
+    async def async_get(self, path: str, **params: str | int | float) -> Any:
         try:
             async with self._session.get(f"{self.base_url}{path}", headers=self._headers, params=params, timeout=15) as response:
                 if response.status >= 400:
@@ -25,6 +25,6 @@ class PortainerApi:
         return list(result) if isinstance(result, Iterable) else []
     async def async_docker_info(self, endpoint_id: int): return await self.async_get(f"/api/endpoints/{endpoint_id}/docker/info")
     async def async_containers(self, endpoint_id: int):
-        result = await self.async_get(f"/api/endpoints/{endpoint_id}/docker/containers/json", all=True)
+        result = await self.async_get(f"/api/endpoints/{endpoint_id}/docker/containers/json", all="true")
         return list(result) if isinstance(result, Iterable) else []
     async def async_disk_usage(self, endpoint_id: int): return await self.async_get(f"/api/endpoints/{endpoint_id}/docker/system/df")

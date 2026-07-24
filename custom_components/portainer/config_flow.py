@@ -19,7 +19,7 @@ class PortainerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         schema=vol.Schema({vol.Required(CONF_BASE_URL,default="http://localhost:9000"):str,vol.Required(CONF_API_KEY):str})
         return self.async_show_form(step_id="user",data_schema=schema,errors=errors)
     @staticmethod
-    async def async_get_options_flow(config_entry): return PortainerOptionsFlow(config_entry)
+    def async_get_options_flow(config_entry): return PortainerOptionsFlow(config_entry)
 class PortainerOptionsFlow(config_entries.OptionsFlow):
     def __init__(self,config_entry): self.config_entry=config_entry
     async def async_step_init(self,user_input=None):
