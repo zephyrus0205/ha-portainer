@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.3
+
+- Keep the integration available when an individual Docker endpoint returns HTTP 502.
+- Report unavailable endpoints as offline.
+
 ## 0.1.2
 
 - Fix read-only ConfigEntry access in the Options Flow.

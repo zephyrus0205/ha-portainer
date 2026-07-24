@@ -27,9 +27,17 @@ class PortainerCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             for endpoint in endpoints:
                 endpoint_id = int(endpoint["Id"]); ids.add(endpoint_id)
                 cached = self._info.get(endpoint_id)
-                if cached is None or self.hass.loop.time() - cached[0] >= DEFAULT_INFO_INTERVAL:
-                    cached = (self.hass.loop.time(), await self.api.async_docker_info(endpoint_id)); self._info[endpoint_id] = cached
-                data["endpoints"][endpoint_id] = {"endpoint": endpoint, "info": cached[1], "containers": await self.api.async_containers(endpoint_id)}
+                endpoint_data = {"endpoint": endpoint, "info": cached[1] if cached else {}, "containers": [], "online": True}
+                try:
+                    if cached is None or self.hass.loop.time() - cached[0] >= DEFAULT_INFO_INTERVAL:
+                        cached = (self.hass.loop.time(), await self.api.async_docker_info(endpoint_id))
+                        self._info[endpoint_id] = cached
+                    endpoint_data["info"] = cached[1]
+                    endpoint_data["containers"] = await self.api.async_containers(endpoint_id)
+                except PortainerApiError as err:
+                    endpoint_data["online"] = False
+                    _LOGGER.warning("Endpoint %s is unavailable: %s", endpoint_id, err)
+                data["endpoints"][endpoint_id] = endpoint_data
             self._info = {key: value for key, value in self._info.items() if key in ids}
             data["status"] = await self.api.async_status()
             return data

@@ -8,4 +8,4 @@ class OnlineSensor(PortainerEntity,BinarySensorEntity):
     _attr_name="Online"
     def __init__(self,c,eid,endpoint_id): super().__init__(c,eid,endpoint_id); self._attr_unique_id=f"{eid}_{endpoint_id}_online"
     @property
-    def is_on(self): return self.endpoint_id in self.coordinator.data["endpoints"]
+    def is_on(self): return self.coordinator.data["endpoints"].get(self.endpoint_id, {}).get("online", False)
