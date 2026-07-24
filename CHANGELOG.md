@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- Fix read-only ConfigEntry access in the Options Flow.
+
 ## 0.1.1
 
 - Fix boolean query encoding for the Docker containers API.
