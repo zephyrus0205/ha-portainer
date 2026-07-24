@@ -1,0 +1,1 @@
+{"config":{"step":{"user":{"title":"Portainer 연결","description":"Portainer URL과 API 키를 입력하세요.","data":{"base_url":"URL","api_key":"API 키"}}},"error":{"cannot_connect":"Portainer에 연결할 수 없습니다."},"abort":{"already_configured":"이미 설정된 Portainer입니다."}},"options":{"step":{"init":{"title":"Portainer 옵션","data":{"scan_interval":"컨테이너 폴링 간격(초)"}}}}}

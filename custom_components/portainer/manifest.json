@@ -1,18 +1,17 @@
 {
-    "domain": "portainer",
-    "name": "Portainer",
-    "codeowners": [
-      "@zephyrus0205"
-    ],
-    "config_flow": true,
-    "documentation": "https://git.zephyrus0205.synology.me/root/ha-portainer",
-    "issue_tracker": "https://git.zephyrus0205.synology.me/root/ha-portainer/-/issues",
-    "iot_class": "cloud_polling",
-    "requirements": [
-      "aiohttp>=3.11.0"
-    ],
-    "version": "0.1.0-alpha1",
-    "loggers": [
-      "custom_components.portainer"
-    ]
-  }
+  "domain": "portainer",
+  "name": "Portainer",
+  "codeowners": [
+    "@zephyrus0205"
+  ],
+  "config_flow": true,
+  "documentation": "https://git.zephyrus0205.synology.me/root/ha-portainer",
+  "issue_tracker": "https://git.zephyrus0205.synology.me/root/ha-portainer/-/issues",
+  "iot_class": "local_polling",
+  "requirements": [],
+  "version": "0.1.0",
+  "loggers": [
+    "custom_components.portainer"
+  ],
+  "diagnostics": true
+}
