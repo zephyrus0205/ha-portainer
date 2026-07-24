@@ -1,0 +1,9 @@
+{
+    "name": "Portainer",
+    "country": "KR",
+    "homeassistant": "2026.6.0",
+    "render_readme": true,
+    "domains": [
+      "portainer"
+    ]
+  }
