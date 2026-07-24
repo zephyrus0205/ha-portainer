@@ -28,3 +28,18 @@ class PortainerApi:
         result = await self.async_get(f"/api/endpoints/{endpoint_id}/docker/containers/json", all="true")
         return list(result) if isinstance(result, Iterable) else []
     async def async_disk_usage(self, endpoint_id: int): return await self.async_get(f"/api/endpoints/{endpoint_id}/docker/system/df")
+
+    async def async_container_action(self, endpoint_id: int, container_id: str, action: str) -> None:
+        """Run a supported Docker container action."""
+        if action not in {"start", "stop", "restart"}:
+            raise PortainerApiError(f"Unsupported container action: {action}")
+        try:
+            async with self._session.post(
+                f"{self.base_url}/api/endpoints/{endpoint_id}/docker/containers/{container_id}/{action}",
+                headers=self._headers,
+                timeout=15,
+            ) as response:
+                if response.status >= 400:
+                    raise PortainerApiError(f"HTTP {response.status}")
+        except (aiohttp.ClientError, TimeoutError) as err:
+            raise PortainerApiError(str(err)) from err

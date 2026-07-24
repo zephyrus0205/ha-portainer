@@ -43,3 +43,8 @@ class PortainerCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             return data
         except PortainerApiError as err:
             raise UpdateFailed(str(err)) from err
+
+    async def async_container_action(self, endpoint_id: int, container_id: str, action: str) -> None:
+        """Control a container through the API client and refresh the cache."""
+        await self.api.async_container_action(endpoint_id, container_id, action)
+        await self.async_request_refresh()

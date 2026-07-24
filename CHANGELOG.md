@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0
+
+- Add start, stop, and restart buttons for discovered Docker containers.
+
 ## 0.1.3
 
 - Keep the integration available when an individual Docker endpoint returns HTTP 502.
